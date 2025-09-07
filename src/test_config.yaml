@@ -1,0 +1,67 @@
+# Test Configuration for Embryo Analyzer Training
+# This is a minimal configuration for testing the training pipeline
+
+# Model Configuration
+model:
+  name: "resnet50"
+  num_classes: 5
+  pretrained: true
+
+# Data Configuration
+data:
+  root_dir: "../data/processed/"
+  batch_size: 8  # Smaller batch for testing
+  image_size: [224, 224]
+  num_workers: 0
+
+# Training Configuration
+training:
+  num_epochs: 2  # Only 2 epochs for testing
+  learning_rate: 0.001
+  weight_decay: 0.0001
+
+# Optimizer Configuration
+optimizer:
+  type: "adam"
+  adam:
+    beta1: 0.9
+    beta2: 0.999
+    eps: 0.00000001
+
+# Learning Rate Scheduler Configuration
+scheduler:
+  type: "step"
+  step_size: 1  # Step every epoch for testing
+  gamma: 0.5
+
+# Loss Function Configuration
+loss:
+  type: "cross_entropy"
+  label_smoothing: 0.0
+
+# Validation Configuration
+validation:
+  frequency: 1
+
+# Logging and Checkpointing
+logging:
+  log_interval: 5  # Log every 5 batches
+  save_frequency: 1  # Save every epoch
+
+# Checkpoint Configuration
+checkpoint:
+  save_dir: "../models/test/"  # Test directory
+  save_best_only: true
+  best_model_filename: "test_best_model.pth"
+  checkpoint_filename: "test_checkpoint_epoch_{epoch}.pth"
+
+# Device Configuration
+device: "auto"
+
+# Random Seed
+seed: 42
+
+# Experiment Tracking
+experiment:
+  name: "embryo_classifier_test"
+  description: "Test run of embryo classifier training"

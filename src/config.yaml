@@ -1,0 +1,75 @@
+# Embryo Analyzer Training Configuration
+# This file contains all hyperparameters and settings for training the embryo classification model
+
+# Model Configuration
+model:
+  name: "resnet50"  # Model architecture
+  num_classes: 5    # Number of embryo stages (2cell, 4cell, 8cell, blastocyst, morula)
+  pretrained: true  # Use pre-trained weights from ImageNet
+
+# Data Configuration
+data:
+  root_dir: "../data/processed/"  # Path to processed data directory
+  batch_size: 32                  # Number of images per batch
+  image_size: [224, 224]         # Input image dimensions [height, width]
+  num_workers: 0                  # Number of data loading workers (0 for Windows compatibility)
+
+# Training Configuration
+training:
+  num_epochs: 20                  # Total number of training epochs
+  learning_rate: 0.001           # Initial learning rate for optimizer
+  weight_decay: 0.0001           # L2 regularization weight
+  momentum: 0.9                  # Momentum for SGD (if used)
+
+# Optimizer Configuration
+optimizer:
+  type: "adam"  # Options: "adam", "sgd", "adamw"
+  # Adam-specific parameters
+  adam:
+    beta1: 0.9
+    beta2: 0.999
+    eps: 1e-8
+
+# Learning Rate Scheduler Configuration
+scheduler:
+  type: "step"        # Options: "step", "cosine", "exponential"
+  step_size: 7        # Number of epochs before LR decay
+  gamma: 0.1          # Learning rate decay factor
+
+# Loss Function Configuration
+loss:
+  type: "cross_entropy"  # Loss function type
+  label_smoothing: 0.0   # Label smoothing factor (0.0 = no smoothing)
+
+# Validation Configuration
+validation:
+  frequency: 1  # Validate every N epochs
+
+# Logging and Checkpointing
+logging:
+  log_interval: 10  # Log training progress every N batches
+  save_frequency: 5  # Save checkpoint every N epochs
+
+# Checkpoint Configuration
+checkpoint:
+  save_dir: "../models/"      # Directory to save model checkpoints
+  save_best_only: true        # Only save the best model based on validation accuracy
+  best_model_filename: "best_model.pth"  # Filename for the best model
+  checkpoint_filename: "checkpoint_epoch_{epoch}.pth"  # Filename pattern for checkpoints
+
+# Early Stopping Configuration (optional)
+early_stopping:
+  enabled: false      # Enable early stopping
+  patience: 10        # Number of epochs to wait before stopping
+  min_delta: 0.001    # Minimum change in validation loss to be considered improvement
+
+# Device Configuration
+device: "auto"  # Options: "auto", "cpu", "cuda", "mps"
+
+# Random Seed
+seed: 42  # Random seed for reproducibility
+
+# Experiment Tracking
+experiment:
+  name: "embryo_classifier_resnet50"  # Experiment name
+  description: "Fine-tuning ResNet50 for embryo stage classification"
