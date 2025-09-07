@@ -1,0 +1,38 @@
+# environment.yml
+# This file defines the Conda environment for the Embryo Analyzer project.
+# It ensures a reproducible and cross-platform setup.
+#
+# To create the environment, run:
+# conda env create -f environment.yml
+#
+# To activate the environment, run:
+# conda activate embryo_env
+
+name: embryo_env
+
+channels:
+  - pytorch      # Primary channel for official PyTorch builds
+  - conda-forge  # High-priority channel for most scientific packages
+  - defaults     # Fallback channel
+
+dependencies:
+  # --- Core Deep Learning Stack ---
+  - python=3.10          # A stable, modern version of Python
+  - pytorch::pytorch     # Specifies getting pytorch from the pytorch channel
+  - pytorch::torchvision
+  - pytorch::torchaudio
+  
+  # --- Image Processing and Data Handling ---
+  - opencv               # For high-performance image loading and manipulation
+  - pandas               # For handling metadata and experiment results
+  - scikit-image         # For advanced image analysis and feature extraction
+  - scikit-learn         # For ML metrics (confusion matrix, accuracy, etc.)
+  
+  # --- Development and Visualization ---
+  - jupyter              # For interactive development in notebooks
+  - matplotlib           # The primary library for plotting and displaying images
+  - seaborn              # Makes matplotlib plots look much better with less code
+  - tqdm                 # For beautiful, informative progress bars in loops
+  - pyyaml               # For loading project configurations from .yaml files
+  - pip                  # To install any packages not available on Conda
+  
