@@ -10,13 +10,13 @@ model:
 # Data Configuration
 data:
   root_dir: "../data/processed/"
-  batch_size: 8  # Smaller batch for testing
+  batch_size: 32  # Full batch size for production training
   image_size: [224, 224]
   num_workers: 0
 
 # Training Configuration
 training:
-  num_epochs: 2  # Only 2 epochs for testing
+  num_epochs: 20  # Full training - 20 epochs
   learning_rate: 0.001
   weight_decay: 0.0001
 
@@ -50,10 +50,10 @@ logging:
 
 # Checkpoint Configuration
 checkpoint:
-  save_dir: "../models/test/"  # Test directory
+  save_dir: "../models/"  # Main models directory for production run
   save_best_only: true
-  best_model_filename: "test_best_model.pth"
-  checkpoint_filename: "test_checkpoint_epoch_{epoch}.pth"
+  best_model_filename: "best_model_full_training.pth"
+  checkpoint_filename: "checkpoint_epoch_{epoch}.pth"
 
 # Device Configuration
 device: "auto"
@@ -63,5 +63,5 @@ seed: 42
 
 # Experiment Tracking
 experiment:
-  name: "embryo_classifier_test"
-  description: "Test run of embryo classifier training"
+  name: "embryo_classifier_full_training"
+  description: "Full 20-epoch training of ResNet50 on Embryo 2.0 dataset"
